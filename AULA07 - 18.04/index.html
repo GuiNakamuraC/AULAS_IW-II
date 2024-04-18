@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>JQuery Validation</title>		
+		<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="css/style.css">
+		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+		<script type="text/javascript" src="js/additional-methods.min.js"></script>
+		<script type="text/javascript" src="js/localization/messages_pt_BR.js"></script>
+		
+		<script type="text/javascript">
+		
+			jQuery.validator.addMethod("arrobaNoInicio", function(value, element){
+				if (value.indexOf("@") == 0){
+					return true
+				}else{
+					return false
+				}
+			}, "Tem que ter arroba no começo")
+		
+			$(document).ready(function(){
+				$("#formCadastro").validate({
+					rules:{
+						nome: {
+							required: true,
+							maxlength: 100,
+							minlength: 3,
+						},
+						sobrenome: {
+							required: true,
+							maxlength: 100,
+							minlength: 2,
+						},
+						email: {
+							required: true,
+							email: true
+						},
+						estado: {
+							required: true,
+						},
+						cidade: {
+							required: true,
+						},
+						idade: {
+							required: true,
+							min: 1,
+							max: 120
+						},
+						instagram: {
+							arrobaNoInicio: true,
+						}
+					},
+					submitHandler: function(form){
+						alert("Formulário enviado com sucesso!")						
+					}
+				})
+			})
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Validação de formulários com JQuery Validation</h1>
+			<form name="formCadastro" id="formCadastro" method="post">
+				<div class="row">
+					<label>Nome</label>
+					<input type="text" name="nome" id="nome" class="form-control" />
+				</div>
+				<div class="row">
+					<label>Sobrenome</label>
+					<input type="text" name="sobrenome" id="sobrenome" class="form-control" />
+				</div>
+				<div class="row">
+					<label>E-mail</label>
+					<input type="email" name="email" id="email" class="form-control" />
+				</div>		
+				<div class="row">
+					<label>Telefone</label>
+					<input type="text" name="telefone" id="telefone" class="form-control" placeholder="(99) 99999-9999" pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{5})-([0-9]{4})">
+				</div>
+				<div class="row">
+					<label>Estado</label>
+					<select name="estado" id="estado" class="form-control">
+						<option value="">--</option>
+						<option value="ES">Espirito Santo</option>
+						<option value="MG">Minas Gerais</option>
+						<option value="RJ">Rio de Janeiro</option>
+						<option value="SP">São Paulo</option>
+						<option value="OUTRO">Outro</option>
+					</select>
+				</div>		
+				<div class="row">
+					<label>Cidade</label>
+					<select name="cidade" id="cidade" class="form-control">
+						<option value="">----</option>
+						<option value="DIADEMA">Diadema</option>
+						<option value="MAUA">Mauá</option>
+						<option value="RIBEIRAOPIRES">Ribeirão Pires</option>
+						<option value="RIOGRANDEDASERRA">Rio Grande da Serra</option>
+						<option value="SANTOANDRE">Santo André</option>
+						<option value="SAOBERNARDODOCAMPO">São Bernardo do Campo</option>
+						<option value="SAOCAETANODOSUL">São Caetano do Sul</option>
+						<option value="OUTRO">Outro</option>
+					</select>
+				</div>
+				<div class="row">
+					<label>Idade</label>
+					<input type="number" name="idade" id="idade" class="form-control" />
+				</div>
+				<div class="row">
+					<label>Instagram</label>
+					<input type="text" name="instagram" id="instagram" class="form-control" />
+				</div>
+				<div class="row">
+					<input type="submit" name="enviar" id="enviar" class="btn btn-primary form-control botao" />
+				</div>
+			</form>
+		</div>
+	</body>
+</html>
